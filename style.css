@@ -101,10 +101,12 @@ input[type="checkbox"] {
 }
 
 
+
 .checked p {
-    text-decoration: line-through;
-    color: rgb(221, 0, 0);
+    /* text-decoration: line-through; */ 
+    /*color: rgb(221, 0, 0); /* Keep the red color or change it if needed */
 }
+
 
 .btn{
     border: none;
