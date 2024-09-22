@@ -52,7 +52,7 @@ body{
     background-color: #60b160;
 }
 
-/* Style for Clear All button */
+
 #clearAllBtn {
     background-color: #ff0000;
     color: white;
@@ -94,7 +94,13 @@ ul li p{
     padding: 2px;
 }
 
-/* Checked class for completed tasks */
+input[type="checkbox"] {
+    accent-color: red;
+    width: 18px;
+    height: 18px;
+}
+
+
 .checked p {
     text-decoration: line-through;
     color: rgb(221, 0, 0);
