@@ -5,9 +5,9 @@ const clearAllBtn = document.getElementById('clearAllBtn');
 
 let editTodo = null;
 
-// Function to add todo
+
 const addTodo = (event) => {
-    event.preventDefault(); // Prevent any default action
+    event.preventDefault(); 
     const inputText = inputBox.value.trim();
     
     if (inputText.length <= 0) {
@@ -21,40 +21,47 @@ const addTodo = (event) => {
         addBtn.value = "Add";
         inputBox.value = "";
     } else {
-        // Creating li element
+        
         const li = document.createElement("li");
-        li.addEventListener('click', toggleChecked); // Add event listener for checking/unchecking
+        li.addEventListener('click', toggleChecked); 
+
+        
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.classList.add("checkbox");
+        li.appendChild(checkbox);
+
         const p = document.createElement("p");
         p.innerHTML = inputText;
         li.appendChild(p);
 
-        // Creating Edit Btn
+        
         const editBtn = document.createElement("button");
         editBtn.innerText = "Edit";
         editBtn.classList.add("btn", "editBtn");
         li.appendChild(editBtn);
 
-        // Creating Delete Btn
+        
         const deleteBtn = document.createElement("button");
         deleteBtn.innerText = "Remove";
         deleteBtn.classList.add("btn", "deleteBtn");
         li.appendChild(deleteBtn);
 
-        todoList.appendChild(li);  // Append the new item to the list
-        inputBox.value = "";       // Clear the input box after adding
+        todoList.appendChild(li);  
+        inputBox.value = "";       
 
-        saveLocalTodos(inputText); // Save to local storage
+        saveLocalTodos(inputText); 
     }
 };
 
-// Function to toggle checked/unchecked
+
 const toggleChecked = (e) => {
-    if (e.target.tagName === 'LI' || e.target.tagName === 'P') {
+    if (e.target.tagName === 'LI' || e.target.tagName === 'P' || e.target.type === 'checkbox') {
         e.currentTarget.classList.toggle('checked');
     }
 };
 
-// Function to update: (Edit/Delete) todo
+
 const updateTodo = (e) => {
     if (e.target.innerHTML === "Remove") {
         todoList.removeChild(e.target.parentElement);
@@ -69,15 +76,15 @@ const updateTodo = (e) => {
     }
 };
 
-// Function to clear all tasks and reset the Add button
+
 const clearAllTodos = () => {
     todoList.innerHTML = '';
     localStorage.removeItem('todos');
-    addBtn.value = "Add"; // Reset the button back to Add mode
-    inputBox.value = "";  // Clear the input box
+    addBtn.value = "Add"; 
+    inputBox.value = "";  
 };
 
-// Function to save local todo
+
 const saveLocalTodos = (todo) => {
     let todos;
     if (localStorage.getItem("todos") === null) {
@@ -89,7 +96,7 @@ const saveLocalTodos = (todo) => {
     localStorage.setItem("todos", JSON.stringify(todos));
 };
 
-// Function to get local todos on page load
+
 const getLocalTodos = () => {
     let todos;
     if (localStorage.getItem("todos") === null) {
@@ -97,20 +104,27 @@ const getLocalTodos = () => {
     } else {
         todos = JSON.parse(localStorage.getItem("todos"));
         todos.forEach(todo => {
-            // Creating li element
+            
             const li = document.createElement("li");
-            li.addEventListener('click', toggleChecked); // Add event listener for checking/unchecking
+            li.addEventListener('click', toggleChecked); 
+
+            
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.classList.add("checkbox");
+            li.appendChild(checkbox);
+
             const p = document.createElement("p");
             p.innerHTML = todo;
             li.appendChild(p);
 
-            // Creating Edit Btn
+            
             const editBtn = document.createElement("button");
             editBtn.innerText = "Edit";
             editBtn.classList.add("btn", "editBtn");
             li.appendChild(editBtn);
 
-            // Creating Delete Btn
+            
             const deleteBtn = document.createElement("button");
             deleteBtn.innerText = "Remove";
             deleteBtn.classList.add("btn", "deleteBtn");
@@ -121,7 +135,7 @@ const getLocalTodos = () => {
     }
 };
 
-// Function to delete local todo
+
 const deleteLocalTodos = (todo) => {
     let todos;
     if (localStorage.getItem("todos") === null) {
@@ -130,13 +144,13 @@ const deleteLocalTodos = (todo) => {
         todos = JSON.parse(localStorage.getItem("todos"));
     }
 
-    let todoText = todo.children[0].innerHTML;
+    let todoText = todo.children[1].innerHTML;
     let todoIndex = todos.indexOf(todoText);
     todos.splice(todoIndex, 1);
     localStorage.setItem("todos", JSON.stringify(todos));
 };
 
-// Function to edit local todo
+
 const editLocalTodos = (todo) => {
     let todos = JSON.parse(localStorage.getItem("todos"));
     let todoIndex = todos.indexOf(todo);
@@ -144,8 +158,8 @@ const editLocalTodos = (todo) => {
     localStorage.setItem("todos", JSON.stringify(todos));
 };
 
-// Event listeners
-document.addEventListener('DOMContentLoaded', getLocalTodos); // Load local todos when DOM is loaded
-addBtn.addEventListener('click', addTodo);                    // Add todo event listener
-todoList.addEventListener('click', updateTodo);               // Update todo (edit/delete) event listener
-clearAllBtn.addEventListener('click', clearAllTodos);         // Clear all tasks event listener
+
+document.addEventListener('DOMContentLoaded', getLocalTodos); 
+addBtn.addEventListener('click', addTodo);                    
+todoList.addEventListener('click', updateTodo);               
+clearAllBtn.addEventListener('click', clearAllTodos);  
